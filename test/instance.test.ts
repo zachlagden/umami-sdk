@@ -1,3 +1,4 @@
+// @vitest-environment-options { "url": "https://example.com/" }
 import { describe, it, expect, vi } from 'vitest';
 import { createUmami } from '../src/core/instance';
 import type { Environment } from '../src/core/types';
@@ -97,5 +98,27 @@ describe('createUmami', () => {
     window.dispatchEvent(new Event('online'));
     await Promise.resolve();
     expect(fetchFn).toHaveBeenCalledTimes(1);
+  });
+
+  it('sets up auto-tracking by default (fires initial pageview)', async () => {
+    const fetchFn = vi.fn(async () => ({ json: async () => ({}) })) as unknown as typeof fetch;
+    Object.defineProperty(document, 'readyState', { value: 'complete', configurable: true });
+    window.history.replaceState(null, '', 'https://example.com/auto');
+    createUmami(
+      { websiteId: 'abc', hostUrl: 'https://a.test' },
+      { getEnvironment: () => ({ ...env, url: 'https://example.com/auto' }), fetchFn, isOnline: () => true },
+    );
+    await Promise.resolve();
+    expect(fetchFn).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not set up auto-tracking when autoTrack is false', async () => {
+    const fetchFn = vi.fn(async () => ({ json: async () => ({}) })) as unknown as typeof fetch;
+    createUmami(
+      { websiteId: 'abc', hostUrl: 'https://a.test', autoTrack: false },
+      { getEnvironment: () => env, fetchFn, isOnline: () => true },
+    );
+    await Promise.resolve();
+    expect(fetchFn).not.toHaveBeenCalled();
   });
 });

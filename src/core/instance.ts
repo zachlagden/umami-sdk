@@ -3,6 +3,7 @@ import { buildBasePayload } from './payload';
 import { send, type TransportState } from './transport';
 import { getBrowserEnvironment } from './environment';
 import { isBlocked, isOptedOut, setOptOut } from './privacy';
+import { setupAutoTrack } from './autotrack';
 
 export interface UmamiDeps {
   getEnvironment?: () => Environment;
@@ -97,6 +98,10 @@ export function createUmami(config: UmamiConfig, deps: UmamiDeps = {}): UmamiIns
       return state.disabled || isOptedOut();
     },
   };
+
+  if (config.autoTrack ?? true) {
+    setupAutoTrack(instance, { dataAttributes: config.dataAttributes });
+  }
 
   return instance;
 }

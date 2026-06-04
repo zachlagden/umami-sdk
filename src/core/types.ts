@@ -51,5 +51,6 @@ export interface UmamiInstance {
   identify(data: Record<string, unknown>): Promise<void>;
   enable(): void;
   disable(): void;
+  destroy(): void;
   readonly disabled: boolean;
 }

@@ -121,4 +121,39 @@ describe('createUmami', () => {
     await Promise.resolve();
     expect(fetchFn).not.toHaveBeenCalled();
   });
+
+  it('destroy() tears down auto-tracking (no pageview after destroy on navigation)', () => {
+    vi.useFakeTimers();
+    try {
+      const fetchFn = vi.fn(async () => ({ json: async () => ({}) })) as unknown as typeof fetch;
+      Object.defineProperty(document, 'readyState', { value: 'complete', configurable: true });
+      window.history.replaceState(null, '', 'https://example.com/d');
+      const inst = createUmami(
+        { websiteId: 'abc', hostUrl: 'https://a.test' },
+        { getEnvironment: () => ({ ...env, url: 'https://example.com/d' }), fetchFn, isOnline: () => true },
+      );
+      const initial = (fetchFn as any).mock.calls.length;
+      inst.destroy();
+      window.history.pushState(null, '', '/after-destroy');
+      vi.advanceTimersByTime(300);
+      expect((fetchFn as any).mock.calls.length).toBe(initial);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('destroy() removes the online listener (no flush after destroy)', async () => {
+    let online = false;
+    const fetchFn = vi.fn(async () => ({ json: async () => ({}) })) as unknown as typeof fetch;
+    const inst = createUmami(
+      { websiteId: 'abc', hostUrl: 'https://a.test', autoTrack: false },
+      { getEnvironment: () => env, fetchFn, isOnline: () => online },
+    );
+    await inst.track('queued');
+    inst.destroy();
+    online = true;
+    window.dispatchEvent(new Event('online'));
+    await Promise.resolve();
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
 });

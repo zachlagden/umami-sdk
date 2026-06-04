@@ -3,7 +3,7 @@ import { buildBasePayload } from './payload';
 import { send, type TransportState } from './transport';
 import { getBrowserEnvironment } from './environment';
 import { isBlocked, isOptedOut, setOptOut } from './privacy';
-import { setupAutoTrack } from './autotrack';
+import { setupAutoTrack, type AutoTrackHandle } from './autotrack';
 
 export interface UmamiDeps {
   getEnvironment?: () => Environment;
@@ -32,6 +32,8 @@ export function createUmami(config: UmamiConfig, deps: UmamiDeps = {}): UmamiIns
   let identifyId: string | undefined;
   const offlineBuffer: Array<{ type: SendType; payload: EventPayload }> = [];
   let onlineListenerAttached = false;
+  let autoTrackHandle: AutoTrackHandle | null = null;
+  const cleanups: Array<() => void> = [];
 
   function base(): EventPayload {
     return buildBasePayload(config, getEnvironment(), identifyId);
@@ -49,6 +51,10 @@ export function createUmami(config: UmamiConfig, deps: UmamiDeps = {}): UmamiIns
     if (onlineListenerAttached || typeof window === 'undefined') return;
     onlineListenerAttached = true;
     window.addEventListener('online', flushOffline);
+    cleanups.push(() => {
+      window.removeEventListener('online', flushOffline);
+      onlineListenerAttached = false;
+    });
   }
 
   async function dispatch(type: SendType, payload: EventPayload): Promise<void> {
@@ -97,10 +103,16 @@ export function createUmami(config: UmamiConfig, deps: UmamiDeps = {}): UmamiIns
     get disabled(): boolean {
       return state.disabled || isOptedOut();
     },
+    destroy(): void {
+      autoTrackHandle?.stop();
+      autoTrackHandle = null;
+      const fns = cleanups.splice(0, cleanups.length);
+      for (const fn of fns) fn();
+    },
   };
 
   if (config.autoTrack ?? true) {
-    setupAutoTrack(instance, { dataAttributes: config.dataAttributes });
+    autoTrackHandle = setupAutoTrack(instance, { dataAttributes: config.dataAttributes });
   }
 
   return instance;

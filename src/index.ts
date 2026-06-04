@@ -47,6 +47,7 @@ export const umami = {
     return instance ? instance.disabled : false;
   },
   reset(): void {
+    instance?.destroy();
     instance = null;
     queue = new EventQueue();
   },

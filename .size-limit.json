@@ -1,0 +1,8 @@
+[
+  {
+    "name": "umami-sdk core",
+    "path": "dist/index.js",
+    "limit": "3 KB",
+    "gzip": true
+  }
+]

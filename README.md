@@ -56,6 +56,11 @@ umami.disable(); // sets localStorage 'umami.disabled', stops tracking
 umami.enable();  // resumes
 ```
 
+## Notes
+
+- `data-umami-event` works on **any** element (not only `<a>`/`<button>`) — put it on a wrapper `<div>` if you like.
+- Known limitation: `excludeSearch`/`excludeHash` are applied to the page `url`, but not yet to the *referrer* of an SPA navigation.
+
 ## License
 
 MIT

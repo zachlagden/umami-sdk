@@ -41,7 +41,7 @@ export async function send(opts: SendOptions): Promise<void> {
     const data = (await res.json().catch(() => undefined)) as SendResponse | undefined;
     if (data) {
       if (typeof data.cache === 'string') state.cacheToken = data.cache;
-      if (data.disabled) state.disabled = true;
+      state.disabled = !!data.disabled;
     }
   } catch {
     // Analytics must never throw into the host app.

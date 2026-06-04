@@ -1,5 +1,5 @@
 // @vitest-environment-options { "url": "https://example.com/" }
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { createUmami } from '../src/core/instance';
 import type { Environment } from '../src/core/types';
 
@@ -17,6 +17,10 @@ function setup(overrides: Partial<Parameters<typeof createUmami>[0]> = {}) {
   const body = () => JSON.parse((fetchFn as any).mock.calls.at(-1)[1].body);
   return { instance, fetchFn, body };
 }
+
+beforeEach(() => {
+  window.localStorage.clear();
+});
 
 describe('createUmami', () => {
   it('builds /api/send from hostUrl', async () => {
@@ -151,6 +155,21 @@ describe('createUmami', () => {
     );
     await inst.track('queued');
     inst.destroy();
+    online = true;
+    window.dispatchEvent(new Event('online'));
+    await Promise.resolve();
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
+  it('does not flush buffered events if opted out before reconnect', async () => {
+    let online = false;
+    const fetchFn = vi.fn(async () => ({ json: async () => ({}) })) as unknown as typeof fetch;
+    const inst = createUmami(
+      { websiteId: 'abc', hostUrl: 'https://a.test', autoTrack: false },
+      { getEnvironment: () => env, fetchFn, isOnline: () => online },
+    );
+    await inst.track('queued');
+    window.localStorage.setItem('umami.disabled', '1');
     online = true;
     window.dispatchEvent(new Event('online'));
     await Promise.resolve();

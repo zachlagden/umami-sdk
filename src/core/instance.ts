@@ -42,6 +42,7 @@ export function createUmami(config: UmamiConfig, deps: UmamiDeps = {}): UmamiIns
   function flushOffline(): void {
     if (!isOnline()) return;
     const items = offlineBuffer.splice(0, offlineBuffer.length);
+    if (isBlocked(config, getEnvironment(), state.disabled)) return;
     for (const item of items) {
       void send({ endpoint, type: item.type, payload: item.payload, credentials, state, fetchFn });
     }

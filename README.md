@@ -2,7 +2,7 @@
 
 Lightweight, type-safe SDK for [Umami](https://umami.is) analytics (v2). Native transport, no external script, works in any browser app.
 
-> Ships today: core browser SDK, a server-side sender (`umami-sdk/node`), and React + Next adapters. More framework adapters (Vue, Svelte, Solid, Astro) follow.
+> Ships today: core browser SDK, a server-side sender (`umami-sdk/node`), and React, Next, and Vue adapters. More framework adapters (Svelte, Solid, Astro) follow.
 
 ## Install
 
@@ -98,6 +98,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```
 
 The component ships with the `'use client'` directive, so it drops straight into a Server Component layout. Pages Router users can use `<UmamiProvider>` from `umami-sdk/react` instead.
+
+## Vue (`umami-sdk/vue`)
+
+```ts
+import { createApp } from 'vue';
+import { umamiPlugin } from 'umami-sdk/vue';
+
+const app = createApp(App);
+app.use(umamiPlugin, { websiteId: '...', hostUrl: 'https://analytics.example.com' });
+```
+
+```vue
+<script setup lang="ts">
+import { useUmami } from 'umami-sdk/vue';
+const umami = useUmami();
+</script>
+
+<template>
+  <button @click="umami.track('signup', { plan: 'pro' })">Sign up</button>
+</template>
+```
+
+The plugin auto-tracks SPA pageviews (vue-router uses the History API) and tears down on app unmount. `vue` is an optional peer dependency.
 
 ## Server-side (`umami-sdk/node`)
 

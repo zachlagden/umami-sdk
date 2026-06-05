@@ -23,6 +23,7 @@ export default defineConfig([
       node: 'src/node/index.ts',
       vue: 'src/vue/index.ts',
       svelte: 'src/svelte/index.ts',
+      solid: 'src/solid/index.ts',
     },
     format: ['esm', 'cjs'],
     dts: true,

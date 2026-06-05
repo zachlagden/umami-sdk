@@ -10,5 +10,12 @@
     "path": "dist/node.js",
     "limit": "2 KB",
     "gzip": true
+  },
+  {
+    "name": "umami-sdk/react",
+    "path": "dist/react.js",
+    "limit": "2.5 KB",
+    "gzip": true,
+    "ignore": ["react", "react-dom"]
   }
 ]

@@ -38,5 +38,12 @@
     "limit": "2.5 KB",
     "gzip": true,
     "ignore": ["svelte", "svelte/store"]
+  },
+  {
+    "name": "umami-sdk/solid",
+    "path": "dist/solid.js",
+    "limit": "2.5 KB",
+    "gzip": true,
+    "ignore": ["solid-js"]
   }
 ]

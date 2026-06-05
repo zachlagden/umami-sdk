@@ -11,6 +11,7 @@
   "peerDependencies": {
     "next": ">=13",
     "react": ">=18",
+    "solid-js": ">=1",
     "svelte": ">=4",
     "vue": ">=3"
   },
@@ -19,6 +20,9 @@
       "optional": true
     },
     "react": {
+      "optional": true
+    },
+    "solid-js": {
       "optional": true
     },
     "svelte": {
@@ -59,6 +63,11 @@
       "import": "./dist/svelte.js",
       "require": "./dist/svelte.cjs"
     },
+    "./solid": {
+      "types": "./dist/solid.d.ts",
+      "import": "./dist/solid.js",
+      "require": "./dist/solid.cjs"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -92,6 +101,7 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "size-limit": "^11.1.6",
+    "solid-js": "^1.9.13",
     "svelte": "^5.56.2",
     "tsup": "^8.3.0",
     "typescript": "^5.6.0",

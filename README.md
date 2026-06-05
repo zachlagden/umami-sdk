@@ -2,7 +2,7 @@
 
 Lightweight, type-safe SDK for [Umami](https://umami.is) analytics (v2). Native transport, no external script, works in any browser app.
 
-> Ships today: core browser SDK, a server-side sender (`umami-sdk/node`), and a React adapter (`umami-sdk/react`). More framework adapters (Next, Vue, Svelte, Solid, Astro) follow.
+> Ships today: core browser SDK, a server-side sender (`umami-sdk/node`), and React + Next adapters. More framework adapters (Vue, Svelte, Solid, Astro) follow.
 
 ## Install
 
@@ -76,6 +76,28 @@ function Page() {
 ```
 
 `<UmamiProvider>` creates the tracker on mount (auto-tracking SPA pageviews) and tears it down on unmount. `react` is an optional peer dependency.
+
+## Next.js (`umami-sdk/next`)
+
+App Router — drop `<UmamiAnalytics />` into your root layout. It tracks the initial pageview and every route change (via `usePathname`/`useSearchParams`):
+
+```tsx
+// app/layout.tsx
+import { UmamiAnalytics } from 'umami-sdk/next';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <UmamiAnalytics websiteId="..." hostUrl="https://analytics.example.com" />
+      </body>
+    </html>
+  );
+}
+```
+
+The component ships with the `'use client'` directive, so it drops straight into a Server Component layout. Pages Router users can use `<UmamiProvider>` from `umami-sdk/react` instead.
 
 ## Server-side (`umami-sdk/node`)
 

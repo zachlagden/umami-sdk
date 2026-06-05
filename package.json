@@ -9,10 +9,16 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "peerDependencies": {
+    "next": ">=13",
     "react": ">=18"
   },
   "peerDependenciesMeta": {
-    "react": { "optional": true }
+    "next": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
   },
   "exports": {
     ".": {
@@ -29,6 +35,11 @@
       "types": "./dist/react.d.ts",
       "import": "./dist/react.js",
       "require": "./dist/react.cjs"
+    },
+    "./next": {
+      "types": "./dist/next.d.ts",
+      "import": "./dist/next.js",
+      "require": "./dist/next.cjs"
     },
     "./package.json": "./package.json"
   },
@@ -59,6 +70,7 @@
     "@types/react": "^19.2.16",
     "@types/react-dom": "^19.2.3",
     "happy-dom": "^15.7.4",
+    "next": "^16.2.7",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "size-limit": "^11.1.6",

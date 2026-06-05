@@ -56,6 +56,38 @@ umami.disable(); // sets localStorage 'umami.disabled', stops tracking
 umami.enable();  // resumes
 ```
 
+## Server-side (`umami-sdk/node`)
+
+Fire events from Node with explicit request context:
+
+```ts
+import { createUmami } from 'umami-sdk/node';
+
+const umami = createUmami({
+  websiteId: 'your-website-id',
+  hostUrl: 'https://analytics.example.com',
+});
+
+await umami.track({
+  url: '/checkout',
+  name: 'purchase',
+  data: { amount: 49 },
+  userAgent: req.headers['user-agent'], // → User-Agent header (device/browser)
+  ip: req.ip,                           // → X-Forwarded-For (geo/session)
+});
+
+await umami.identify({ id: 'user-123', url: '/checkout', data: { tier: 'gold' } });
+```
+
+Or a one-off with inline config:
+
+```ts
+import { track } from 'umami-sdk/node';
+await track({ websiteId: '...', hostUrl: '...', url: '/p', name: 'signup' });
+```
+
+`url` can be an absolute URL or a path; `hostname` is derived from the URL (or `hostUrl`) when omitted. Requires Node ≥ 18.
+
 ## Notes
 
 - `data-umami-event` works on **any** element (not only `<a>`/`<button>`) — put it on a wrapper `<div>` if you like.

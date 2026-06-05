@@ -51,5 +51,11 @@
     "path": "dist/astro.js",
     "limit": "1 KB",
     "gzip": true
+  },
+  {
+    "name": "umami-sdk/api",
+    "path": "dist/api.js",
+    "limit": "2 KB",
+    "gzip": true
   }
 ]

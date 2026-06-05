@@ -2,7 +2,7 @@
 
 Lightweight, type-safe SDK for [Umami](https://umami.is) analytics (v2). Native transport, no external script, works in any browser app.
 
-> Ships today: core browser SDK, a server-side sender (`umami-sdk/node`), and React, Next, and Vue adapters. More framework adapters (Svelte, Solid, Astro) follow.
+> Ships today: core browser SDK, a server-side sender (`umami-sdk/node`), and React, Next, Vue, and Svelte adapters. More framework adapters (Solid, Astro) follow.
 
 ## Install
 
@@ -121,6 +121,22 @@ const umami = useUmami();
 ```
 
 The plugin auto-tracks SPA pageviews (vue-router uses the History API) and tears down on app unmount. `vue` is an optional peer dependency.
+
+## Svelte / SvelteKit (`umami-sdk/svelte`)
+
+```svelte
+<script lang="ts">
+  import { onDestroy } from 'svelte';
+  import { createUmamiStore } from 'umami-sdk/svelte';
+
+  const umami = createUmamiStore({ websiteId: '...', hostUrl: 'https://analytics.example.com' });
+  onDestroy(umami.destroy);
+</script>
+
+<button on:click={() => $umami.track('signup', { plan: 'pro' })}>Sign up</button>
+```
+
+`createUmamiStore` returns a Svelte store, so `$umami` is the tracker instance. SPA pageviews are auto-tracked via the History API. The framework-agnostic singleton is also re-exported: `import { umami } from 'umami-sdk/svelte'`. `svelte` is an optional peer dependency.
 
 ## Server-side (`umami-sdk/node`)
 

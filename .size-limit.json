@@ -24,5 +24,12 @@
     "limit": "2.5 KB",
     "gzip": true,
     "ignore": ["react", "react-dom", "next"]
+  },
+  {
+    "name": "umami-sdk/vue",
+    "path": "dist/vue.js",
+    "limit": "2.5 KB",
+    "gzip": true,
+    "ignore": ["vue"]
   }
 ]

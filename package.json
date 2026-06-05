@@ -8,6 +8,12 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": { "optional": true }
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -19,10 +25,19 @@
       "import": "./dist/node.js",
       "require": "./dist/node.cjs"
     },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js",
+      "require": "./dist/react.cjs"
+    },
     "./package.json": "./package.json"
   },
-  "files": ["dist"],
-  "engines": { "node": ">=18" },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
@@ -30,16 +45,30 @@
     "typecheck": "tsc --noEmit",
     "size": "size-limit"
   },
-  "keywords": ["umami", "analytics", "tracking", "privacy", "sdk", "typescript"],
+  "keywords": [
+    "umami",
+    "analytics",
+    "tracking",
+    "privacy",
+    "sdk",
+    "typescript"
+  ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^11.1.6",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^19.2.16",
+    "@types/react-dom": "^19.2.3",
     "happy-dom": "^15.7.4",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "size-limit": "^11.1.6",
     "tsup": "^8.3.0",
     "typescript": "^5.6.0",
     "vitest": "^2.1.0"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }

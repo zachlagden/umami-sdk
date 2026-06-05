@@ -77,6 +77,11 @@
       "import": "./dist/astro.js",
       "require": "./dist/astro.cjs"
     },
+    "./api": {
+      "types": "./dist/api.d.ts",
+      "import": "./dist/api.js",
+      "require": "./dist/api.cjs"
+    },
     "./package.json": "./package.json"
   },
   "files": [

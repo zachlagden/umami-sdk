@@ -25,6 +25,7 @@ export default defineConfig([
       svelte: 'src/svelte/index.ts',
       solid: 'src/solid/index.ts',
       astro: 'src/astro/index.ts',
+      api: 'src/api/index.ts',
     },
     format: ['esm', 'cjs'],
     dts: true,

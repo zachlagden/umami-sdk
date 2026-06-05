@@ -12,6 +12,7 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 - `umami-sdk/svelte` — `createUmamiStore()` Svelte store (`$umami.track(...)`) + re-exported singleton.
 - `umami-sdk/solid` — `<UmamiProvider>` + `useUmami()` primitive; disposes the tracker via `onCleanup`.
 - `umami-sdk/astro` — Astro integration that injects tracking into every page.
+- `umami-sdk/api` — reporting/read client (`createUmamiApiClient`) for the Umami REST API: Cloud (`x-umami-api-key`) and self-hosted (login or bearer token) auth; `getWebsites`/`getWebsite`/`getActiveVisitors`/`getStats`/`getPageviews`/`getMetrics`/`getEventsSeries`; throws `UmamiApiError` on failure.
 
 ## [0.1.0] - 2026-06-04
 

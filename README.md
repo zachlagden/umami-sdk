@@ -2,7 +2,7 @@
 
 Lightweight, type-safe SDK for [Umami](https://umami.is) analytics (v2). Native transport, no external script, works in any browser app.
 
-> One install, multiple tree-shakeable entry points: core browser SDK, a server-side sender (`umami-sdk/node`), and adapters for React, Next, Vue, Svelte, Solid, and Astro.
+> One install, multiple tree-shakeable entry points: core browser SDK, a server-side sender (`umami-sdk/node`), framework adapters (React, Next, Vue, Svelte, Solid, Astro), and a reporting API client (`umami-sdk/api`).
 
 ## Install
 
@@ -205,6 +205,32 @@ await track({ websiteId: '...', hostUrl: '...', url: '/p', name: 'signup' });
 ```
 
 `url` can be an absolute URL or a path; `hostname` is derived from the URL (or `hostUrl`) when omitted. Requires Node ≥ 18.
+
+## Reporting API (`umami-sdk/api`)
+
+Read your analytics back out — for dashboards, reports, or exports. Supports Umami Cloud (API key) and self-hosted (username/password or a bearer token):
+
+```ts
+import { createUmamiApiClient } from 'umami-sdk/api';
+
+// Umami Cloud
+const cloud = createUmamiApiClient({ apiKey: process.env.UMAMI_API_KEY! });
+
+// Self-hosted (logs in lazily and caches the token)
+const client = createUmamiApiClient({
+  apiEndpoint: 'https://analytics.example.com',
+  username: 'admin',
+  password: process.env.UMAMI_PASSWORD!,
+});
+
+const websites = await client.getWebsites();
+const stats = await client.getStats('website-id', { startAt: Date.now() - 7 * 864e5, endAt: Date.now() });
+const top = await client.getMetrics('website-id', { startAt, endAt, type: 'referrer', limit: 10 });
+const series = await client.getPageviews('website-id', { startAt, endAt, unit: 'day', timezone: 'UTC' });
+const live = await client.getActiveVisitors('website-id');
+```
+
+Unlike the tracker (which never throws), the API client **throws `UmamiApiError`** (with `.status` and `.body`) on a failed request, so callers can handle errors. `startAt`/`endAt` are epoch milliseconds.
 
 ## Notes
 

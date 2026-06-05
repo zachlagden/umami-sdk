@@ -24,6 +24,7 @@ export default defineConfig([
       vue: 'src/vue/index.ts',
       svelte: 'src/svelte/index.ts',
       solid: 'src/solid/index.ts',
+      astro: 'src/astro/index.ts',
     },
     format: ['esm', 'cjs'],
     dts: true,

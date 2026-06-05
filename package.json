@@ -9,6 +9,7 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "peerDependencies": {
+    "astro": ">=3",
     "next": ">=13",
     "react": ">=18",
     "solid-js": ">=1",
@@ -16,6 +17,9 @@
     "vue": ">=3"
   },
   "peerDependenciesMeta": {
+    "astro": {
+      "optional": true
+    },
     "next": {
       "optional": true
     },
@@ -67,6 +71,11 @@
       "types": "./dist/solid.d.ts",
       "import": "./dist/solid.js",
       "require": "./dist/solid.cjs"
+    },
+    "./astro": {
+      "types": "./dist/astro.d.ts",
+      "import": "./dist/astro.js",
+      "require": "./dist/astro.cjs"
     },
     "./package.json": "./package.json"
   },

@@ -11,6 +11,7 @@
   "peerDependencies": {
     "next": ">=13",
     "react": ">=18",
+    "svelte": ">=4",
     "vue": ">=3"
   },
   "peerDependenciesMeta": {
@@ -18,6 +19,9 @@
       "optional": true
     },
     "react": {
+      "optional": true
+    },
+    "svelte": {
       "optional": true
     },
     "vue": {
@@ -49,6 +53,11 @@
       "types": "./dist/vue.d.ts",
       "import": "./dist/vue.js",
       "require": "./dist/vue.cjs"
+    },
+    "./svelte": {
+      "types": "./dist/svelte.d.ts",
+      "import": "./dist/svelte.js",
+      "require": "./dist/svelte.cjs"
     },
     "./package.json": "./package.json"
   },
@@ -83,6 +92,7 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "size-limit": "^11.1.6",
+    "svelte": "^5.56.2",
     "tsup": "^8.3.0",
     "typescript": "^5.6.0",
     "vitest": "^2.1.0",

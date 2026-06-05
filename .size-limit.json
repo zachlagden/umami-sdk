@@ -31,5 +31,12 @@
     "limit": "2.5 KB",
     "gzip": true,
     "ignore": ["vue"]
+  },
+  {
+    "name": "umami-sdk/svelte",
+    "path": "dist/svelte.js",
+    "limit": "2.5 KB",
+    "gzip": true,
+    "ignore": ["svelte", "svelte/store"]
   }
 ]

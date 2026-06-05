@@ -18,7 +18,12 @@ async function prependUseClient() {
 
 export default defineConfig([
   {
-    entry: { index: 'src/index.ts', node: 'src/node/index.ts', vue: 'src/vue/index.ts' },
+    entry: {
+      index: 'src/index.ts',
+      node: 'src/node/index.ts',
+      vue: 'src/vue/index.ts',
+      svelte: 'src/svelte/index.ts',
+    },
     format: ['esm', 'cjs'],
     dts: true,
     clean: true,

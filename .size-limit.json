@@ -4,5 +4,11 @@
     "path": "dist/index.js",
     "limit": "3 KB",
     "gzip": true
+  },
+  {
+    "name": "umami-sdk/node",
+    "path": "dist/node.js",
+    "limit": "2 KB",
+    "gzip": true
   }
 ]

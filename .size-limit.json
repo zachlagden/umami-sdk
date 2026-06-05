@@ -45,5 +45,11 @@
     "limit": "2.5 KB",
     "gzip": true,
     "ignore": ["solid-js"]
+  },
+  {
+    "name": "umami-sdk/astro",
+    "path": "dist/astro.js",
+    "limit": "1 KB",
+    "gzip": true
   }
 ]

@@ -11,6 +11,7 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 - `umami-sdk/vue` — `umamiPlugin` + `useUmami()` composable; provides the tracker app-wide and destroys it on unmount.
 - `umami-sdk/svelte` — `createUmamiStore()` Svelte store (`$umami.track(...)`) + re-exported singleton.
 - `umami-sdk/solid` — `<UmamiProvider>` + `useUmami()` primitive; disposes the tracker via `onCleanup`.
+- `umami-sdk/astro` — Astro integration that injects tracking into every page.
 
 ## [0.1.0] - 2026-06-04
 

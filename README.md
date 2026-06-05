@@ -2,7 +2,7 @@
 
 Lightweight, type-safe SDK for [Umami](https://umami.is) analytics (v2). Native transport, no external script, works in any browser app.
 
-> Ships today: core browser SDK, a server-side sender (`umami-sdk/node`), and React, Next, Vue, Svelte, and Solid adapters. An Astro integration follows.
+> One install, multiple tree-shakeable entry points: core browser SDK, a server-side sender (`umami-sdk/node`), and adapters for React, Next, Vue, Svelte, Solid, and Astro.
 
 ## Install
 
@@ -158,6 +158,21 @@ function Page() {
 ```
 
 The provider creates the tracker and disposes it via `onCleanup`. SPA pageviews are auto-tracked via the History API. `solid-js` is an optional peer dependency.
+
+## Astro (`umami-sdk/astro`)
+
+Add the integration to `astro.config.mjs` — it injects tracking into every page:
+
+```ts
+import { defineConfig } from 'astro/config';
+import umami from 'umami-sdk/astro';
+
+export default defineConfig({
+  integrations: [umami({ websiteId: '...', hostUrl: 'https://analytics.example.com' })],
+});
+```
+
+Works with MPA navigation and View Transitions (the core's History tracking covers soft navigations). `beforeSend` isn't supported through the integration (it can't be serialized into the injected script) — use the core SDK directly if you need it.
 
 ## Server-side (`umami-sdk/node`)
 

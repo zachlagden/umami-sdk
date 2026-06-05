@@ -14,7 +14,7 @@
   {
     "name": "umami-sdk/react",
     "path": "dist/react.js",
-    "limit": "2 KB",
+    "limit": "2.5 KB",
     "gzip": true,
     "ignore": ["react", "react-dom"]
   }

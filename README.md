@@ -2,7 +2,7 @@
 
 Lightweight, type-safe SDK for [Umami](https://umami.is) analytics (v2). Native transport, no external script, works in any browser app.
 
-> Framework adapters (React, Next, Vue, Svelte, Solid, Astro) and a server-side sender ship in follow-on releases.
+> Ships today: core browser SDK, a server-side sender (`umami-sdk/node`), and a React adapter (`umami-sdk/react`). More framework adapters (Next, Vue, Svelte, Solid, Astro) follow.
 
 ## Install
 
@@ -55,6 +55,27 @@ analytics.track();
 umami.disable(); // sets localStorage 'umami.disabled', stops tracking
 umami.enable();  // resumes
 ```
+
+## React (`umami-sdk/react`)
+
+```tsx
+import { UmamiProvider, useUmami } from 'umami-sdk/react';
+
+function App() {
+  return (
+    <UmamiProvider config={{ websiteId: '...', hostUrl: 'https://analytics.example.com' }}>
+      <Page />
+    </UmamiProvider>
+  );
+}
+
+function Page() {
+  const umami = useUmami();
+  return <button onClick={() => umami.track('signup', { plan: 'pro' })}>Sign up</button>;
+}
+```
+
+`<UmamiProvider>` creates the tracker on mount (auto-tracking SPA pageviews) and tears it down on unmount. `react` is an optional peer dependency.
 
 ## Server-side (`umami-sdk/node`)
 

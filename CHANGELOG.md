@@ -5,14 +5,14 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 ## [Unreleased]
 
 ### Added
-- `umami-sdk/node` — server-side sender with explicit request context (`url`, `userAgent` → `User-Agent`, `ip` → `X-Forwarded-For`); `createUmami`, `track`, `identify`.
-- `umami-sdk/react` — `<UmamiProvider>` + `useUmami()` hook; creates the tracker on mount and destroys it on unmount.
-- `umami-sdk/next` — `<UmamiAnalytics />` App Router component (ships `'use client'`); tracks initial pageview + route changes via `usePathname`/`useSearchParams`.
-- `umami-sdk/vue` — `umamiPlugin` + `useUmami()` composable; provides the tracker app-wide and destroys it on unmount.
-- `umami-sdk/svelte` — `createUmamiStore()` Svelte store (`$umami.track(...)`) + re-exported singleton.
-- `umami-sdk/solid` — `<UmamiProvider>` + `useUmami()` primitive; disposes the tracker via `onCleanup`.
-- `umami-sdk/astro` — Astro integration that injects tracking into every page.
-- `umami-sdk/api` — reporting/read client (`createUmamiApiClient`) for the Umami REST API: Cloud (`x-umami-api-key`) and self-hosted (login or bearer token) auth; `getWebsites`/`getWebsite`/`getActiveVisitors`/`getStats`/`getPageviews`/`getMetrics`/`getEventsSeries`; throws `UmamiApiError` on failure.
+- `@zachlagden/umami-sdk/node` — server-side sender with explicit request context (`url`, `userAgent` → `User-Agent`, `ip` → `X-Forwarded-For`); `createUmami`, `track`, `identify`.
+- `@zachlagden/umami-sdk/react` — `<UmamiProvider>` + `useUmami()` hook; creates the tracker on mount and destroys it on unmount.
+- `@zachlagden/umami-sdk/next` — `<UmamiAnalytics />` App Router component (ships `'use client'`); tracks initial pageview + route changes via `usePathname`/`useSearchParams`.
+- `@zachlagden/umami-sdk/vue` — `umamiPlugin` + `useUmami()` composable; provides the tracker app-wide and destroys it on unmount.
+- `@zachlagden/umami-sdk/svelte` — `createUmamiStore()` Svelte store (`$umami.track(...)`) + re-exported singleton.
+- `@zachlagden/umami-sdk/solid` — `<UmamiProvider>` + `useUmami()` primitive; disposes the tracker via `onCleanup`.
+- `@zachlagden/umami-sdk/astro` — Astro integration that injects tracking into every page.
+- `@zachlagden/umami-sdk/api` — reporting/read client (`createUmamiApiClient`) for the Umami REST API: Cloud (`x-umami-api-key`) and self-hosted (login or bearer token) auth; `getWebsites`/`getWebsite`/`getActiveVisitors`/`getStats`/`getPageviews`/`getMetrics`/`getEventsSeries`; throws `UmamiApiError` on failure.
 
 ## [0.1.0] - 2026-06-04
 

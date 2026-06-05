@@ -19,7 +19,7 @@ describe('astro integration', () => {
       },
     });
     expect(stage).toBe('page');
-    expect(code).toContain("from 'umami-sdk'");
+    expect(code).toContain("from '@zachlagden/umami-sdk'");
     expect(code).toContain('umami.init(');
     expect(code).toContain('"websiteId":"abc"');
     expect(code).toContain('"hostUrl":"https://a.test"');

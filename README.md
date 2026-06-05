@@ -1,19 +1,19 @@
-# umami-sdk
+# @zachlagden/umami-sdk
 
 Lightweight, type-safe SDK for [Umami](https://umami.is) analytics (v2). Native transport, no external script, works in any browser app.
 
-> One install, multiple tree-shakeable entry points: core browser SDK, a server-side sender (`umami-sdk/node`), framework adapters (React, Next, Vue, Svelte, Solid, Astro), and a reporting API client (`umami-sdk/api`).
+> One install, multiple tree-shakeable entry points: core browser SDK, a server-side sender (`@zachlagden/umami-sdk/node`), framework adapters (React, Next, Vue, Svelte, Solid, Astro), and a reporting API client (`@zachlagden/umami-sdk/api`).
 
 ## Install
 
 ```bash
-pnpm add umami-sdk
+pnpm add @zachlagden/umami-sdk
 ```
 
 ## Quick start
 
 ```ts
-import { umami } from 'umami-sdk';
+import { umami } from '@zachlagden/umami-sdk';
 
 umami.init({
   websiteId: 'your-website-id',
@@ -27,7 +27,7 @@ umami.identify('user-123', { tier: 'gold' });
 Or create an isolated instance:
 
 ```ts
-import { createUmami } from 'umami-sdk';
+import { createUmami } from '@zachlagden/umami-sdk';
 
 const analytics = createUmami({ websiteId: '...', hostUrl: '...' });
 analytics.track();
@@ -56,10 +56,10 @@ umami.disable(); // sets localStorage 'umami.disabled', stops tracking
 umami.enable();  // resumes
 ```
 
-## React (`umami-sdk/react`)
+## React (`@zachlagden/umami-sdk/react`)
 
 ```tsx
-import { UmamiProvider, useUmami } from 'umami-sdk/react';
+import { UmamiProvider, useUmami } from '@zachlagden/umami-sdk/react';
 
 function App() {
   return (
@@ -77,13 +77,13 @@ function Page() {
 
 `<UmamiProvider>` creates the tracker on mount (auto-tracking SPA pageviews) and tears it down on unmount. `react` is an optional peer dependency.
 
-## Next.js (`umami-sdk/next`)
+## Next.js (`@zachlagden/umami-sdk/next`)
 
 App Router — drop `<UmamiAnalytics />` into your root layout. It tracks the initial pageview and every route change (via `usePathname`/`useSearchParams`):
 
 ```tsx
 // app/layout.tsx
-import { UmamiAnalytics } from 'umami-sdk/next';
+import { UmamiAnalytics } from '@zachlagden/umami-sdk/next';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -97,13 +97,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-The component ships with the `'use client'` directive, so it drops straight into a Server Component layout. Pages Router users can use `<UmamiProvider>` from `umami-sdk/react` instead.
+The component ships with the `'use client'` directive, so it drops straight into a Server Component layout. Pages Router users can use `<UmamiProvider>` from `@zachlagden/umami-sdk/react` instead.
 
-## Vue (`umami-sdk/vue`)
+## Vue (`@zachlagden/umami-sdk/vue`)
 
 ```ts
 import { createApp } from 'vue';
-import { umamiPlugin } from 'umami-sdk/vue';
+import { umamiPlugin } from '@zachlagden/umami-sdk/vue';
 
 const app = createApp(App);
 app.use(umamiPlugin, { websiteId: '...', hostUrl: 'https://analytics.example.com' });
@@ -111,7 +111,7 @@ app.use(umamiPlugin, { websiteId: '...', hostUrl: 'https://analytics.example.com
 
 ```vue
 <script setup lang="ts">
-import { useUmami } from 'umami-sdk/vue';
+import { useUmami } from '@zachlagden/umami-sdk/vue';
 const umami = useUmami();
 </script>
 
@@ -122,12 +122,12 @@ const umami = useUmami();
 
 The plugin auto-tracks SPA pageviews (vue-router uses the History API) and tears down on app unmount. `vue` is an optional peer dependency.
 
-## Svelte / SvelteKit (`umami-sdk/svelte`)
+## Svelte / SvelteKit (`@zachlagden/umami-sdk/svelte`)
 
 ```svelte
 <script lang="ts">
   import { onDestroy } from 'svelte';
-  import { createUmamiStore } from 'umami-sdk/svelte';
+  import { createUmamiStore } from '@zachlagden/umami-sdk/svelte';
 
   const umami = createUmamiStore({ websiteId: '...', hostUrl: 'https://analytics.example.com' });
   onDestroy(umami.destroy);
@@ -136,12 +136,12 @@ The plugin auto-tracks SPA pageviews (vue-router uses the History API) and tears
 <button on:click={() => $umami.track('signup', { plan: 'pro' })}>Sign up</button>
 ```
 
-`createUmamiStore` returns a Svelte store, so `$umami` is the tracker instance. SPA pageviews are auto-tracked via the History API. The framework-agnostic singleton is also re-exported: `import { umami } from 'umami-sdk/svelte'`. `svelte` is an optional peer dependency.
+`createUmamiStore` returns a Svelte store, so `$umami` is the tracker instance. SPA pageviews are auto-tracked via the History API. The framework-agnostic singleton is also re-exported: `import { umami } from '@zachlagden/umami-sdk/svelte'`. `svelte` is an optional peer dependency.
 
-## Solid (`umami-sdk/solid`)
+## Solid (`@zachlagden/umami-sdk/solid`)
 
 ```tsx
-import { UmamiProvider, useUmami } from 'umami-sdk/solid';
+import { UmamiProvider, useUmami } from '@zachlagden/umami-sdk/solid';
 
 function App() {
   return (
@@ -159,13 +159,13 @@ function Page() {
 
 The provider creates the tracker and disposes it via `onCleanup`. SPA pageviews are auto-tracked via the History API. `solid-js` is an optional peer dependency.
 
-## Astro (`umami-sdk/astro`)
+## Astro (`@zachlagden/umami-sdk/astro`)
 
 Add the integration to `astro.config.mjs` — it injects tracking into every page:
 
 ```ts
 import { defineConfig } from 'astro/config';
-import umami from 'umami-sdk/astro';
+import umami from '@zachlagden/umami-sdk/astro';
 
 export default defineConfig({
   integrations: [umami({ websiteId: '...', hostUrl: 'https://analytics.example.com' })],
@@ -174,12 +174,12 @@ export default defineConfig({
 
 Works with MPA navigation and View Transitions (the core's History tracking covers soft navigations). `beforeSend` isn't supported through the integration (it can't be serialized into the injected script) — use the core SDK directly if you need it.
 
-## Server-side (`umami-sdk/node`)
+## Server-side (`@zachlagden/umami-sdk/node`)
 
 Fire events from Node with explicit request context:
 
 ```ts
-import { createUmami } from 'umami-sdk/node';
+import { createUmami } from '@zachlagden/umami-sdk/node';
 
 const umami = createUmami({
   websiteId: 'your-website-id',
@@ -200,18 +200,18 @@ await umami.identify({ id: 'user-123', url: '/checkout', data: { tier: 'gold' } 
 Or a one-off with inline config:
 
 ```ts
-import { track } from 'umami-sdk/node';
+import { track } from '@zachlagden/umami-sdk/node';
 await track({ websiteId: '...', hostUrl: '...', url: '/p', name: 'signup' });
 ```
 
 `url` can be an absolute URL or a path; `hostname` is derived from the URL (or `hostUrl`) when omitted. Requires Node ≥ 18.
 
-## Reporting API (`umami-sdk/api`)
+## Reporting API (`@zachlagden/umami-sdk/api`)
 
 Read your analytics back out — for dashboards, reports, or exports. Supports Umami Cloud (API key) and self-hosted (username/password or a bearer token):
 
 ```ts
-import { createUmamiApiClient } from 'umami-sdk/api';
+import { createUmamiApiClient } from '@zachlagden/umami-sdk/api';
 
 // Umami Cloud
 const cloud = createUmamiApiClient({ apiKey: process.env.UMAMI_API_KEY! });

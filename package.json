@@ -1,8 +1,21 @@
 {
-  "name": "umami-sdk",
+  "name": "@zachlagden/umami-sdk",
   "version": "0.1.0",
   "description": "Lightweight, type-safe SDK for Umami analytics — works everywhere.",
   "license": "MIT",
+  "author": "Zach Lagden",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zachlagden/umami-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zachlagden/umami-sdk/issues"
+  },
+  "homepage": "https://github.com/zachlagden/umami-sdk#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "packageManager": "pnpm@10.33.0",
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.cjs",
@@ -85,7 +98,8 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "CHANGELOG.md"
   ],
   "engines": {
     "node": ">=18"
@@ -95,7 +109,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "size": "size-limit"
+    "size": "size-limit",
+    "prepublishOnly": "pnpm run typecheck && pnpm run test && pnpm run build"
   },
   "keywords": [
     "umami",

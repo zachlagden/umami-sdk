@@ -23,7 +23,7 @@ export default function umami(config: UmamiConfig): AstroIntegrationLike {
     name: 'umami-sdk',
     hooks: {
       'astro:config:setup': ({ injectScript }) => {
-        injectScript('page', `import { umami } from 'umami-sdk';umami.init(${serialized});`);
+        injectScript('page', `import { umami } from '@zachlagden/umami-sdk';umami.init(${serialized});`);
       },
     },
   };

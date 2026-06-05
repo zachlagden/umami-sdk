@@ -17,5 +17,12 @@
     "limit": "2.5 KB",
     "gzip": true,
     "ignore": ["react", "react-dom"]
+  },
+  {
+    "name": "umami-sdk/next",
+    "path": "dist/next.js",
+    "limit": "2.5 KB",
+    "gzip": true,
+    "ignore": ["react", "react-dom", "next"]
   }
 ]
